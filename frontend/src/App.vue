@@ -5,7 +5,9 @@ import Footer from "./components/Footer.vue";
 
 <template>
   <Header />
-  <main class="w-full 2xl:px-[calc((100vw-1280px)/2)] min-h-[calc(100vh-80px)]">
+  <main
+    class="w-full 2xl:px-[calc((100vw-1280px)/2)] min-h-[calc(100vh-80px)] overflow-x-hidden"
+  >
     <RouterView />
   </main>
   <Footer />
