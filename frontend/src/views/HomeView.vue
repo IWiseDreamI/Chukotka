@@ -18,18 +18,21 @@ const setActiveDistrict = (district: District) => {
   <div
     class="w-[100%] h-[calc(100vh-80px)] flex justify-end items-center overflow-hidden"
   >
-    <svg
-      view-box="0 0 1000 1000"
-      class="min-w-[1024px] h-[800px] scale-50 absolute left-0 translate-x-[-16%]"
-    >
-      <path
-        v-for="district in districts"
-        :d="map[district]"
-        @click="setActiveDistrict(district)"
-        class="stroke-white fill-[#79553D] hover:fill-[#3D2B1F] duration-300 cursor-pointer"
-        :class="activeDistrict == district ? 'fill-[#3D2B1F]' : ''"
-      />
-    </svg>
+    <div class="w-1/2 relative">
+      <div
+        class="scale-50 absolute left-0 top-0 h-[400px] translate-x-[-25%] translate-y-[-75%]"
+      >
+        <svg view-box="0 0 1000 1000" class="w-[1024px] h-[800px]">
+          <path
+            v-for="district in districts"
+            :d="map[district]"
+            @click="setActiveDistrict(district)"
+            class="stroke-white fill-[#79553D] hover:fill-[#3D2B1F] duration-300 cursor-pointer"
+            :class="activeDistrict == district ? 'fill-[#3D2B1F]' : ''"
+          />
+        </svg>
+      </div>
+    </div>
     <div class="flex flex-col gap-[24px] w-[50%] text-left">
       <h1>{{ districtsData[activeDistrict].name }}</h1>
       <p>{{ districtsData[activeDistrict].description }}</p>
