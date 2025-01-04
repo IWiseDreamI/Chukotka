@@ -79,7 +79,7 @@ const villageBar = computed(() =>
         <Menubar :model="villageBar" />
         <Markdown
           class="pt-[24px]"
-          :source="districtData.villages[activeVillage as keyof districtData.villages]"
+          :source="districtData.villages[activeVillage]"
         />
       </div>
     </div>
