@@ -3,6 +3,8 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useTermStore } from "@/stores/terms";
 
+import Markdown from "@/components/Markdown.vue";
+
 const route = useRoute();
 
 const terms = useTermStore();
@@ -16,7 +18,7 @@ const item = await terms.getTermById(termId.value);
   >
     <h2>{{ item.title }}</h2>
 
-    <div class="w-full min-h-[400px] text-left" v-html="item.content" />
+    <Markdown :content="item.content" />
   </section>
 </template>
 

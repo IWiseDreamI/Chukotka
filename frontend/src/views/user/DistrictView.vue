@@ -71,14 +71,21 @@ const villageBar = computed(() =>
 
     <div class="flex flex-col w-[50%] text-left gap-[24px]">
       <Menubar :model="items" />
-      <Markdown v-if="activeItem == 'about'" :source="district?.information" />
+      <Markdown
+        v-if="activeItem == 'about'"
+        :content="String(district?.information)"
+      />
       <Markdown
         v-if="activeItem == 'population'"
-        :source="district?.population"
+        :content="String(district?.population)"
       />
       <div v-if="activeItem == 'villages'">
         <Menubar :model="villageBar" />
-        <Markdown class="pt-[24px]" :source="activeVillage.information" />
+        <RouterLink :to="'/villages/' + activeVillage.ID">Подрбнее</RouterLink>
+        <Markdown
+          class="pt-[24px]"
+          :content="String(activeVillage.information)"
+        />
       </div>
     </div>
   </section>

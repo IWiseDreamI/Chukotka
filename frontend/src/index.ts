@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import HomeView from '@/views/user/HomeView.vue'
 import TermView from '@/views/user/TermView.vue'
 import AboutView from '@/views/user/AboutView.vue'
+import VillageView from '@/views/user/VillageView.vue'
 import GuidanceView from '@/views/user/GuidanceView.vue'
 import DistrictView from '@/views/user/DistrictView.vue'
 import DistrictsView from '@/views/user/DistrictsView.vue'
@@ -22,6 +23,7 @@ const routes = [
   { name: 'term', path: '/guidance/:id', component: TermView},
   { name: 'districts', path: '/districts', component: DistrictsView },
   { name: 'district', path: '/districts/:id', component: DistrictView },
+  { name: 'village', path: '/villages/:id', component: VillageView },
   {
     path: '/admin', component: AdminView,
     meta: { admin: true }

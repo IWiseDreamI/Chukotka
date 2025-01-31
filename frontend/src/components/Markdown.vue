@@ -1,32 +1,12 @@
-<template>
-  <article v-html="markdown.render(source)" class="markdown" />
-</template>
-
 <script setup lang="ts">
-import MarkdownIt from "markdown-it";
-import MarkdownItAbbr from "markdown-it-abbr";
-import MarkdownItAnchor from "markdown-it-anchor";
-import MarkdownItFootnote from "markdown-it-footnote";
-import MarkdownItHighlightjs from "markdown-it-highlightjs";
-import MarkdownItSub from "markdown-it-sub";
-import MarkdownItSup from "markdown-it-sup";
-import MarkdownItTasklists from "markdown-it-task-lists";
-import MarkdownItTOC from "markdown-it-toc-done-right";
+import { defineProps } from "vue";
 
-const markdown = new MarkdownIt()
-  .use(MarkdownItAbbr)
-  .use(MarkdownItAnchor)
-  .use(MarkdownItFootnote)
-  .use(MarkdownItHighlightjs)
-  .use(MarkdownItSub)
-  .use(MarkdownItSup)
-  .use(MarkdownItTasklists)
-  .use(MarkdownItTOC);
-
-defineProps({
-  source: {
-    type: String,
-    default: "",
-  },
-});
+defineProps<{
+  content: string;
+  class?: string;
+}>();
 </script>
+
+<template>
+  <div :class="class" class="w-full min-h-[400px] text-left" v-html="content" />
+</template>
