@@ -1,7 +1,32 @@
-export type District =
-  | "bilibino"
-  | "anadyr"
-  | "pevek"
-  | "egvekinot"
-  | "providence"
-  | "chukotka";
+export type entityTypes = "districts" | "villages" | "guidance";
+
+export interface DistrictForm {
+  name: string;
+  description: string;
+  population: string;
+  information: string;
+  map: string;
+}
+
+export interface VillageForm {
+  name: string;
+  description: string;
+  contacts: string;
+  nationality: string;
+  population: string;
+  organizations: string;
+  transport: string;
+  connection: string;
+  activity: string;
+  information: string;
+  people: string;
+  culture: string;
+  socials: string;
+  districtId: string;
+  coordinates: string;
+}
+
+export interface TermForm {
+  title: string;
+  content: string;
+}

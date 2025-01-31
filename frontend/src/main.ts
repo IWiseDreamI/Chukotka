@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import router from './index'
 
@@ -29,6 +30,7 @@ const preset = definePreset(Lara, {
 })
 
 const app = createApp(App);
+const pinia = createPinia()
 
 app.use(PrimeVue, {
   theme: {
@@ -39,5 +41,6 @@ app.use(PrimeVue, {
   }
 });
 app.use(router);
+app.use(pinia);
 
 app.mount('#app')

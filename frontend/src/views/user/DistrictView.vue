@@ -3,13 +3,19 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import Menubar from "primevue/menubar";
 
-import { District } from "@/types";
-import data from "@/assets/data.json";
 import Markdown from "@/components/Markdown.vue";
+import { useVillageStore } from "@/stores/villages";
+import { useDistrictStore } from "@/stores/districts";
 
 const route = useRoute();
-const district = computed(() => route.params.name as District);
-const districtData = computed(() => data.data[district.value]);
+const districtId = computed(() => Number(route.params.id));
+
+const villageStore = useVillageStore();
+
+const districtsStore = useDistrictStore();
+const district = await districtsStore.getDistrictById(districtId.value);
+
+const villages = await villageStore.getDistrictVillages(district?.ID as number);
 
 const activeItem = ref<"about" | "villages" | "population">("about");
 
@@ -37,17 +43,12 @@ const items = ref([
   },
 ]);
 
-type villageType = keyof typeof districtData.value.villages;
-
-const villages = computed(() => {
-  return Object.keys(districtData.value.villages) as Array<villageType>;
-});
-const activeVillage = ref(villages.value[0]);
+const activeVillage = ref(villages[0]);
 
 const villageBar = computed(() =>
-  villages.value.map((village: villageType) => {
+  villages.map((village) => {
     return {
-      label: village,
+      label: village.name,
       command: () => {
         activeVillage.value = village;
       },
@@ -57,30 +58,27 @@ const villageBar = computed(() =>
 </script>
 
 <template>
-  <section class="flex pt-[120px] justify-between">
+  <section class="flex justify-between pt-[40px] xl:pt-[120px]">
     <div class="flex flex-col w-[40%] text-left gap-[24px] items-center">
       <img
-        :src="'/assets/images/emblems/' + district + '.png'"
-        :alt="'Герб' + districtData.name"
+        :src="'/assets/images/emblems/' + district?.name + '.png'"
+        :alt="'Герб' + district?.name"
         class="max-h-[200px] w-auto"
       />
-      <h1 class="w-full">{{ districtData.name }}</h1>
-      <p class="w-full">{{ districtData.description }}</p>
+      <h1 class="w-full">{{ district?.name }}</h1>
+      <p class="w-full">{{ district?.description }}</p>
     </div>
 
     <div class="flex flex-col w-[50%] text-left gap-[24px]">
       <Menubar :model="items" />
-      <Markdown v-if="activeItem == 'about'" :source="districtData.info" />
+      <Markdown v-if="activeItem == 'about'" :source="district?.information" />
       <Markdown
         v-if="activeItem == 'population'"
-        :source="districtData.population"
+        :source="district?.population"
       />
       <div v-if="activeItem == 'villages'">
         <Menubar :model="villageBar" />
-        <Markdown
-          class="pt-[24px]"
-          :source="districtData.villages[activeVillage]"
-        />
+        <Markdown class="pt-[24px]" :source="activeVillage.information" />
       </div>
     </div>
   </section>

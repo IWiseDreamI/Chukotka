@@ -5,8 +5,10 @@ import Footer from "./components/Footer.vue";
 
 <template>
   <Header />
-  <main class="w-full min-h-[calc(100vh-80px)] overflow-x-hidden">
-    <RouterView />
+  <main class="min-h-[calc(100vh-80px)] relative">
+    <Suspense>
+      <RouterView />
+    </Suspense>
   </main>
   <Footer />
 </template>

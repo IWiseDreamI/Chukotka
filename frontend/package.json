@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
+    "axios": "^1.7.9",
     "markdown-it": "^14.1.0",
     "markdown-it-abbr": "^2.0.0",
     "markdown-it-anchor": "^9.2.0",
@@ -19,8 +20,10 @@
     "markdown-it-sup": "^2.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-toc-done-right": "^4.2.0",
+    "pinia": "^2.3.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5",
+    "quill": "^2.0.3",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
