@@ -1,0 +1,30 @@
+Successfully connected to the database
+2025/01/31 14:14:35 Admin already exists. Skipping seeding.
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/districts            --> chukotka/controllers.GetDistricts (5 handlers)
+[GIN-debug] GET    /api/districts/:id        --> chukotka/controllers.GetDistrictByID (5 handlers)
+[GIN-debug] GET    /api/villages             --> chukotka/controllers.GetVillages (5 handlers)
+[GIN-debug] GET    /api/villages/:id         --> chukotka/controllers.GetVillageByID (5 handlers)
+[GIN-debug] GET    /api/terms                --> chukotka/controllers.GetTerms (5 handlers)
+[GIN-debug] GET    /api/terms/:id            --> chukotka/controllers.GetTermByID (5 handlers)
+[GIN-debug] POST   /api/register             --> chukotka/controllers.RegisterAdmin (5 handlers)
+[GIN-debug] POST   /api/login                --> chukotka/controllers.LoginAdmin (5 handlers)
+[GIN-debug] POST   /api/admin/districts      --> chukotka/controllers.CreateDistrict (6 handlers)
+[GIN-debug] PUT    /api/admin/districts/:id  --> chukotka/controllers.UpdateDistrict (6 handlers)
+[GIN-debug] DELETE /api/admin/districts/:id  --> chukotka/controllers.DeleteDistrict (6 handlers)
+[GIN-debug] POST   /api/admin/villages       --> chukotka/controllers.CreateVillage (6 handlers)
+[GIN-debug] PUT    /api/admin/villages/:id   --> chukotka/controllers.UpdateVillage (6 handlers)
+[GIN-debug] DELETE /api/admin/villages/:id   --> chukotka/controllers.DeleteVillage (6 handlers)
+[GIN-debug] POST   /api/admin/terms          --> chukotka/controllers.CreateTerm (6 handlers)
+[GIN-debug] PUT    /api/admin/terms/:id      --> chukotka/controllers.UpdateTerm (6 handlers)
+[GIN-debug] DELETE /api/admin/terms/:id      --> chukotka/controllers.DeleteTerm (6 handlers)
+[GIN-debug] GET    /api/admin/protected      --> chukotka/routes.registerAdminRoutes.func1 (6 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2025/01/31 - 14:20:05 | 404 |       4.798µs | 109.120.178.196 | HEAD     "/districts"
