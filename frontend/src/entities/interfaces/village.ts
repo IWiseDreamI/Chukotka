@@ -14,6 +14,6 @@ export interface Village extends GormModel {
   people?: string;
   culture?: string;
   socials?: string;
-  districtId: number;
+  district_id: number;
   coordinates: string;
 }

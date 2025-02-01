@@ -2,6 +2,8 @@ import { api } from './axios';
 import { Village } from '@/entities/interfaces/village';
 
 export const createVillage = async (newVillage: Village) => {
+  newVillage.district_id = Number(newVillage.district_id)
+
   try {
     const response = await api.post('/admin/villages', newVillage, {
       headers: {
@@ -16,6 +18,8 @@ export const createVillage = async (newVillage: Village) => {
 };
 
 export const updateVillage = async (id: number, updatedVillage: Village) => {
+  updatedVillage.district_id = Number(updatedVillage.district_id)
+
   try {
     const response = await api.put(`/admin/villages/${id}`, updatedVillage, {
       headers: {
