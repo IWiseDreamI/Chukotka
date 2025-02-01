@@ -27,7 +27,8 @@ export const useVillageStore = defineStore('village', () => {
 
   const getDistrictVillages = async (id: number) => {
     if (!villages.value?.length) await fetchVillages();
-    return villages.value.filter((item) => item.districtId === id) as Village[]
+    console.log(villages.value)
+    return villages.value.filter((item) => Number(item.districtId) === id) as Village[]
   };
 
   return { getVillages, fetchVillages, getVillageById, getDistrictVillages };

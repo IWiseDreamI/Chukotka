@@ -45,16 +45,18 @@ const items = ref([
 
 const activeVillage = ref(villages[0]);
 
-const villageBar = computed(() =>
-  villages.map((village) => {
+const villageBar = computed(() => {
+  console.log(villages);
+
+  return villages.map((village) => {
     return {
       label: village.name,
       command: () => {
         activeVillage.value = village;
       },
     };
-  })
-);
+  });
+});
 </script>
 
 <template>
@@ -81,10 +83,12 @@ const villageBar = computed(() =>
       />
       <div v-if="activeItem == 'villages'">
         <Menubar :model="villageBar" />
-        <RouterLink :to="'/villages/' + activeVillage.ID">Подрбнее</RouterLink>
+        <RouterLink :to="'/villages/' + activeVillage?.ID"
+          >Подробнее</RouterLink
+        >
         <Markdown
           class="pt-[24px]"
-          :content="String(activeVillage.information)"
+          :content="String(activeVillage?.information)"
         />
       </div>
     </div>

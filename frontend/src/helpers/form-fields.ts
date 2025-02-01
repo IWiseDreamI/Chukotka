@@ -26,7 +26,7 @@ const villageForm: FieldInterface[] = [
   { name: "people", field: "markdown", label: "Люди" },
   { name: "culture", field: "markdown", label: "Культура" },
   { name: "socials", field: "markdown", label: "Соцсети" },
-  { name: "districtId", field: "input", label: "Район" },
+  { name: "district_id", field: "input", label: "Район" },
   { name: "coordinates", field: "textarea", label: "Координаты" },
 ];
 
