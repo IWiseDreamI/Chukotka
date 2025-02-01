@@ -1,4 +1,4 @@
 {
   "NODE_ENV": "",
-  "apiBaseUrl": "http://localhost:8080/api"
+  "apiBaseUrl": "http://109.120.178.196/api"
 }
