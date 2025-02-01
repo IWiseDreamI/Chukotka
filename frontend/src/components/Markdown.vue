@@ -8,5 +8,5 @@ defineProps<{
 </script>
 
 <template>
-  <div :class="class" class="w-full min-h-[400px] text-left" v-html="content" />
+  <div :class="class" class="w-full text-left py-[12px]" v-html="content" />
 </template>

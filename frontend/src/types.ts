@@ -22,7 +22,7 @@ export interface VillageForm {
   people: string;
   culture: string;
   socials: string;
-  districtId: string;
+  district_id: number;
   coordinates: string;
 }
 

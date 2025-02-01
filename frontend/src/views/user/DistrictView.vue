@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import Menubar from "primevue/menubar";
 
+import { Button } from "primevue";
 import Markdown from "@/components/Markdown.vue";
 import { useVillageStore } from "@/stores/villages";
 import { useDistrictStore } from "@/stores/districts";
@@ -46,8 +47,6 @@ const items = ref([
 const activeVillage = ref(villages[0]);
 
 const villageBar = computed(() => {
-  console.log(villages);
-
   return villages.map((village) => {
     return {
       label: village.name,
@@ -83,13 +82,13 @@ const villageBar = computed(() => {
       />
       <div v-if="activeItem == 'villages'">
         <Menubar :model="villageBar" />
-        <RouterLink :to="'/villages/' + activeVillage?.ID"
-          >Подробнее</RouterLink
-        >
         <Markdown
           class="pt-[24px]"
-          :content="String(activeVillage?.information)"
+          :content="String(activeVillage?.description)"
         />
+        <RouterLink :to="'/villages/' + activeVillage?.ID">
+          <Button>Подробнее</Button>
+        </RouterLink>
       </div>
     </div>
   </section>

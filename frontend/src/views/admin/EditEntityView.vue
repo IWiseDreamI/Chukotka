@@ -55,7 +55,7 @@ onMounted(async () => {
     entity.value === "districts"
       ? ((await districts.getDistrictById(ID)) as DistrictForm)
       : entity.value === "villages"
-      ? ((await villages.getVillageById(ID)) as unknown as VillageForm)
+      ? ((await villages.getVillageById(ID)) as VillageForm)
       : ((await terms.getTermById(ID)) as TermForm);
 
   console.log(formModel.value);

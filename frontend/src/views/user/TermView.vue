@@ -18,7 +18,7 @@ const item = await terms.getTermById(termId.value);
   >
     <h2>{{ item.title }}</h2>
 
-    <Markdown :content="item.content" />
+    <Markdown class="min-w-[400px]" :content="item.content" />
   </section>
 </template>
 
