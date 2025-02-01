@@ -11,12 +11,12 @@ type Village struct {
 	Population string `gorm:"type:text;" json:"population"`
 	Organizations string `gorm:"type:text;" json:"organizations"`
 	Transport string `gorm:"type:text;" json:"transport"`
-	Connection string `gorm:"type:text;" json:"сonnection"`
+	Connection string `gorm:"type:text;" json:"connection"`
 	Activity string `gorm:"type:text;" json:"activity"`
 	Information string `gorm:"type:text;" json:"information"`
 	People string `gorm:"type:text;" json:"people"`
 	Culture string `gorm:"type:text;" json:"culture"`
 	Socials string `gorm:"type:text;" json:"socials"`
 	DistrictID uint `json:"district_id"`
-	Coordinates   string `gorm:"type:text;not null" json:"category"`
+	Coordinates   string `gorm:"type:text;not null" json:"coordinates"`
 }

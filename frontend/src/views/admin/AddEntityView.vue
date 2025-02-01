@@ -51,7 +51,7 @@ const villageFormModel = ref<VillageForm>({
   people: "",
   culture: "",
   socials: "",
-  districtId: "",
+  district_id: 0,
   coordinates: "",
 });
 
