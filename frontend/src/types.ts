@@ -5,7 +5,6 @@ export interface DistrictForm {
   description: string;
   population: string;
   information: string;
-  map: string;
 }
 
 export interface VillageForm {
@@ -23,7 +22,6 @@ export interface VillageForm {
   culture: string;
   socials: string;
   district_id: number;
-  coordinates: string;
 }
 
 export interface TermForm {

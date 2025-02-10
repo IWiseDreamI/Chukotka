@@ -34,7 +34,6 @@ const districtFormModel = ref<DistrictForm>({
   description: "",
   population: "",
   information: "",
-  map: "",
 });
 
 const villageFormModel = ref<VillageForm>({
@@ -52,7 +51,6 @@ const villageFormModel = ref<VillageForm>({
   culture: "",
   socials: "",
   district_id: 0,
-  coordinates: "",
 });
 
 const termFormModel = ref<TermForm>({
