@@ -17,7 +17,6 @@ const handleLogin = async () => {
     alert("Login successful!");
     localStorage.setItem("token", response.token);
     router.push("/admin");
-    window.location.reload();
   } catch (error) {
     alert("Login failed. Please check your credentials.");
   }

@@ -6,6 +6,5 @@ export interface District extends GormModel {
   description?: string;
   population?: string;
   information?: string;
-  map?: string;
   villages?: Village[];
 }

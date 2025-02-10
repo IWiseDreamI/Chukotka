@@ -26,7 +26,7 @@ const entities = [
       <h1>Администраторская панель</h1>
     </RouterLink>
 
-    <div class="flex gap-[32px]">
+    <div class="flex flex-col items-center w-full gap-[32px] md:flex-row">
       <RouterLink v-for="item in entities" :to="item.link">
         <Card class="card">
           <template #content>

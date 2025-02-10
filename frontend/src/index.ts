@@ -4,6 +4,7 @@ import HomeView from '@/views/user/HomeView.vue'
 import TermView from '@/views/user/TermView.vue'
 import AboutView from '@/views/user/AboutView.vue'
 import VillageView from '@/views/user/VillageView.vue'
+import VillagesView from '@/views/user/VillagesView.vue'
 import GuidanceView from '@/views/user/GuidanceView.vue'
 import DistrictView from '@/views/user/DistrictView.vue'
 import DistrictsView from '@/views/user/DistrictsView.vue'
@@ -18,11 +19,15 @@ import EditEntityView from '@/views/admin/EditEntityView.vue'
 const routes = [
   { name: 'main', path: '/', component: HomeView },
   { name: 'auth', path: '/auth', component: AuthView },
-  { name: 'about', path: '/about', component: AboutView },
-  { name: 'guidance', path: '/guidance', component: GuidanceView},
+  { name: 'about', path: '/about', component: AboutView },  
+
   { name: 'term', path: '/guidance/:id', component: TermView},
+  { name: 'guidance', path: '/guidance', component: GuidanceView},
+  
   { name: 'districts', path: '/districts', component: DistrictsView },
   { name: 'district', path: '/districts/:id', component: DistrictView },
+
+  { name: 'villages', path: '/villages', component: VillagesView },
   { name: 'village', path: '/villages/:id', component: VillageView },
   {
     path: '/admin', component: AdminView,

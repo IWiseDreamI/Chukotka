@@ -14,7 +14,7 @@ const item = await villages.getVillageById(villageId.value);
 
 <template>
   <section
-    class="flex flex-col items-start gap-[24px] w-full pt-[40px] xl:pt-[120px]"
+    class="flex flex-col items-start gap-[24px] w-full pt-[40px] xl:pt-[60px]"
   >
     <h2>{{ item.name }}</h2>
 

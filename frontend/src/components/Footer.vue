@@ -15,7 +15,9 @@ const logout = () => {
   <footer
     class="w-[100vw] flex flex-col py-[20px] shadow-reverse lg:px-[80px] 2xl:px-[calc((100vw-1280px)/2)] box-border"
   >
-    <div class="flex justify-between w-full">
+    <div
+      class="flex flex-col items-end w-full gap-[12px] sm:flex-row sm:justify-between sm:gap-0"
+    >
       <div class="flex gap-[36px]">
         <RouterLink :to="logged ? '/admin' : '/auth'" class="text-base">
           Панель
@@ -25,9 +27,7 @@ const logout = () => {
         </p>
       </div>
 
-      <p class="cursor-pointer">
-        2024 © Северо-Восточный федеральный университет имени М.К.Аммосова
-      </p>
+      <p class="cursor-pointer">2024 © WiseDream</p>
     </div>
   </footer>
 </template>

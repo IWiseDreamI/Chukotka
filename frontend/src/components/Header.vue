@@ -22,7 +22,7 @@ const menu = ref(false);
     </RouterLink>
     <nav class="hidden gap-[48px] sm:flex">
       <RouterLink to="/">Главная</RouterLink>
-      <RouterLink to="/districts">Районы</RouterLink>
+      <RouterLink to="/villages">Посёлки</RouterLink>
       <RouterLink to="/guidance">Энциклопедия</RouterLink>
       <RouterLink to="/about">О нас</RouterLink>
     </nav>
