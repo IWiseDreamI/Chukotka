@@ -37,9 +37,11 @@ const getVillageCords = (village: Village) => {
 
 <template>
   <div class="home">
-    <div class="w-[100%] h-[240px] overflow-hidden mc:h-[auto] md:w-[50%]">
+    <div
+      class="flex items-center justify-center w-[1000px] h-[360px] mc:h-full md:w-full lg:h-[500px] xl:w-[60%]"
+    >
       <svg
-        class="w-[640px] h-[500px] basis-[500px] translate-x-[-25%] translate-y-[-125px] mc:basis-[auto] mc:translate-x-[-18%] mc:translate-y-[0] md:w-[100%] md:h-[500px] md:translate-x-[0%]"
+        class="w-full h-[500px] scale-[0.6] translate-x-[-220px] sm:scale-75 sm:translate-x-[-150px] md:translate-x-0 md:w-[640px] md:scale-100 df:scale-125"
       >
         <path
           v-for="district in districts"
@@ -62,7 +64,7 @@ const getVillageCords = (village: Village) => {
     </div>
 
     <div
-      class="flex flex-col gap-[24px] sm:w-2/5 text-left pt-[24px] pb-[36px] md:py-0"
+      class="flex flex-col gap-[24px] xl:w-2/5 text-left pt-[24px] pb-[36px] md:py-0"
     >
       <h1>{{ activeEntity.name }}</h1>
       <Markdown :content="String(activeEntity.description)" />
@@ -84,12 +86,11 @@ const getVillageCords = (village: Village) => {
 .home {
   width: 100%;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
   justify-content: center;
   min-height: calc(100vh - 80px);
 
-  @media (min-width: 768px) {
+  @media (min-width: 1280px) {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;

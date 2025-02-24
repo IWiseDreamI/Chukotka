@@ -7,7 +7,7 @@ const villages = await villagesStore.getVillages();
 </script>
 
 <template>
-  <section class="flex flex-wrap gap-[24px] w-full pt-[40px] xl:pt-[120px]">
+  <section class="flex flex-wrap gap-[24px] w-full py-[40px] xl:pt-[120px]">
     <RouterLink
       v-for="village in villages"
       :to="'/villages/' + village.ID"

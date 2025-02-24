@@ -20,20 +20,20 @@ const menu = ref(false);
         </h3>
       </div>
     </RouterLink>
-    <nav class="hidden gap-[48px] sm:flex">
+    <nav class="hidden gap-[48px] lg:flex">
       <RouterLink to="/">Главная</RouterLink>
       <RouterLink to="/villages">Посёлки</RouterLink>
       <RouterLink to="/guidance">Энциклопедия</RouterLink>
       <RouterLink to="/about">О нас</RouterLink>
     </nav>
-    <nav class="flex gap-[48px] sm:hidden">
-      <Drawer v-model:visible="menu" header="Drawer" position="right">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
+    <nav class="flex gap-[48px] lg:hidden">
+      <Drawer v-model:visible="menu" header="Навигация" position="right">
+        <div class="w-full flex flex-col gap-[12px]">
+          <RouterLink to="/">Главная</RouterLink>
+          <RouterLink to="/villages">Посёлки</RouterLink>
+          <RouterLink to="/guidance">Энциклопедия</RouterLink>
+          <RouterLink to="/about">О нас</RouterLink>
+        </div>
       </Drawer>
       <Button icon="pi pi-bars" @click="menu = true" />
     </nav>

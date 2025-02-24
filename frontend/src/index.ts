@@ -14,6 +14,7 @@ import AdminView from '@/views/admin/AdminView.vue'
 import EntityView from '@/views/admin/EntitiesView.vue'
 import AddEntityView from '@/views/admin/AddEntityView.vue'
 import EditEntityView from '@/views/admin/EditEntityView.vue'
+import { api } from './entities/api/axios'
 
 
 const routes = [
@@ -52,10 +53,24 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to) => {
+router.beforeEach(async(to) => {
   if(to.meta.admin) {
-    if (localStorage.getItem('token')) {
-      return true
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await api.get('/api/is-admin', {
+          headers: {
+            Authorization: token
+          }
+        });
+        if (response.data.valid) {
+          return true;
+        } else {
+          return { name: 'auth' };
+        }
+      } catch (error) {
+        return { name: 'auth' };
+      }
     } else {
       return {
         name: 'auth'

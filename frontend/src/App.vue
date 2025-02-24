@@ -5,7 +5,9 @@ import Footer from "./components/Footer.vue";
 
 <template>
   <Header />
-  <main class="min-h-[calc(100vh-80px)] relative">
+  <main
+    class="min-h-[calc(100vh-80px)] relative overflow-x-hidden lg:overflow-x-auto"
+  >
     <Suspense>
       <RouterView />
     </Suspense>

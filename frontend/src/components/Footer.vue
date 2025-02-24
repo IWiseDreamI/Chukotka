@@ -1,14 +1,33 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, onMounted } from "vue";
+import { api } from "@/entities/api/axios";
 
-const logged = ref(localStorage.getItem("token"));
+const logged = computed(() => localStorage.getItem("token"));
 
 const logout = () => {
   if (logged.value) {
     localStorage.removeItem("token");
-    window.location.reload();
   }
 };
+
+onMounted(() => {
+  if (logged.value) {
+    api
+      .get("/is-admin", {
+        headers: {
+          Authorization: logged.value,
+        },
+      })
+      .then((response) => {
+        if (!response.data.valid) {
+          localStorage.removeItem("token");
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+      });
+  }
+});
 </script>
 
 <template>
@@ -18,7 +37,7 @@ const logout = () => {
     <div
       class="flex flex-col items-end w-full gap-[12px] sm:flex-row sm:justify-between sm:gap-0"
     >
-      <div class="flex gap-[36px]">
+      <div class="hidden md:flex gap-[36px]">
         <RouterLink :to="logged ? '/admin' : '/auth'" class="text-base">
           Панель
         </RouterLink>
