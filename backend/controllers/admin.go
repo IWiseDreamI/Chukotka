@@ -5,7 +5,7 @@ import (
 	"chukotka/repositories"
 	"chukotka/utils"
 	"net/http"
-
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gin-gonic/gin"
 )
 
