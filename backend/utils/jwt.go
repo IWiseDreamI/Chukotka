@@ -2,12 +2,13 @@ package utils
 
 import (
 	"errors"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var jwtSecret = []byte("your_secret_key") // Замените на более безопасный ключ
+var jwtSecret = []byte(os.Getenv("JWT_PRIVATE_KEY")) // Замените на более безопасный ключ
 
 // GenerateJWT - генерирует JWT токен
 func GenerateJWT(username string) (string, error) {

@@ -27,6 +27,8 @@ func registerPublicRoutes(api *gin.RouterGroup) {
 
 	api.POST("/register", controllers.RegisterAdmin)
 	api.POST("/login", controllers.LoginAdmin)
+
+	api.GET("/is-admin", controllers.ValidateTokenBool)
 }
 
 func registerAdminRoutes(api *gin.RouterGroup) {

@@ -67,3 +67,30 @@ func LoginAdmin(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"token": token})
 }
+
+// ValidateTokenBool проверяет валидность JWT-токена и возвращает результат в виде bool.
+func ValidateTokenBool(c *gin.Context) {
+	// Получаем токен из заголовка Authorization
+	tokenString := c.GetHeader("Authorization")
+	if tokenString == "" {
+		c.JSON(http.StatusOK, gin.H{"valid": false})
+		return
+	}
+
+	// Валидируем токен
+	token, err := utils.ValidateJWT(tokenString)
+	if err != nil || !token.Valid {
+		c.JSON(http.StatusOK, gin.H{"valid": false})
+		return
+	}
+
+	// Проверка структуры claims (необязательно, если нужно только валидность)
+	_, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		c.JSON(http.StatusOK, gin.H{"valid": false})
+		return
+	}
+
+	// Если все проверки пройдены, токен действителен
+	c.JSON(http.StatusOK, gin.H{"valid": true})
+}
