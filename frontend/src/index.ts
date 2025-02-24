@@ -58,7 +58,7 @@ router.beforeEach(async(to) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const response = await api.get('/api/is-admin', {
+        const response = await api.get('/is-admin', {
           headers: {
             Authorization: token
           }
