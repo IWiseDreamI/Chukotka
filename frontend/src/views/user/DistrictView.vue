@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRoute } from "vue-router";
 import Menubar from "primevue/menubar";
-
 import { Button } from "primevue";
 import Markdown from "@/components/Markdown.vue";
 import { useVillageStore } from "@/stores/villages";
@@ -12,10 +11,8 @@ const route = useRoute();
 const districtId = computed(() => Number(route.params.id));
 
 const villageStore = useVillageStore();
-
 const districtsStore = useDistrictStore();
 const district = await districtsStore.getDistrictById(districtId.value);
-
 const villages = await villageStore.getDistrictVillages(district?.ID as number);
 
 const activeItem = ref<"about" | "villages" | "population">("about");
@@ -56,11 +53,52 @@ const villageBar = computed(() => {
     };
   });
 });
+
+// Ссылки на компоненты Menubar
+const mainMenubar = ref();
+const villageMenubar = ref();
+
+// Функция удаления класса p-menubar-mobile
+function removeMobileClass() {
+  if (mainMenubar.value && mainMenubar.value.$el) {
+    mainMenubar.value.$el.classList.remove("p-menubar-mobile");
+  }
+  if (villageMenubar.value && villageMenubar.value.$el) {
+    villageMenubar.value.$el.classList.remove("p-menubar-mobile");
+  }
+}
+
+watch(activeItem, () => {
+  setTimeout(() => {
+    removeMobileClass();
+  }, 100);
+});
+
+// Обработчик resize, который удаляет класс
+function handleResize() {
+  removeMobileClass();
+}
+
+onMounted(() => {
+  // Задержка перед удалением класса
+  setTimeout(() => {
+    removeMobileClass();
+  }, 300);
+  window.addEventListener("resize", handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
 </script>
 
 <template>
-  <section class="flex justify-between pt-[40px] xl:pt-[120px]">
-    <div class="flex flex-col w-[40%] text-left gap-[24px] items-center">
+  <section
+    class="flex flex-col justify-between pt-[40px] xl:pt-[120px] xl:flex-row"
+  >
+    <div
+      class="flex flex-col w-full mb-[40px] xl:mb-0 xl:w-[40%] text-left gap-[24px] items-center"
+    >
       <img
         :src="'/assets/images/emblems/' + district?.name + '.png'"
         :alt="'Герб' + district?.name"
@@ -70,8 +108,9 @@ const villageBar = computed(() => {
       <p class="w-full">{{ district?.description }}</p>
     </div>
 
-    <div class="flex flex-col w-[50%] text-left gap-[24px]">
-      <Menubar :model="items" />
+    <div class="flex flex-col w-full xl:w-[50%] text-left gap-[24px]">
+      <!-- Основной Menubar с ref -->
+      <Menubar ref="mainMenubar" :model="items" />
       <Markdown
         v-if="activeItem == 'about'"
         :content="String(district?.information)"
@@ -81,7 +120,8 @@ const villageBar = computed(() => {
         :content="String(district?.population)"
       />
       <div v-if="activeItem == 'villages'">
-        <Menubar :model="villageBar" />
+        <!-- Menubar для деревень с ref -->
+        <Menubar ref="villageMenubar" :model="villageBar" />
         <Markdown
           class="pt-[24px]"
           :content="String(activeVillage?.description)"
@@ -94,4 +134,6 @@ const villageBar = computed(() => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Дополнительные стили при необходимости */
+</style>
