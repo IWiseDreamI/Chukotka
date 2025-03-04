@@ -100,20 +100,21 @@ const hideTooltip = () => {
               class="fill-white duration-300 cursor-pointer hover:fill-slate-400"
               @click="setActiveEntity(village)"
             />
-            <text
-              v-if="getVillageCords(village)"
-              :x="getVillageCords(village)?.tx"
-              :y="getVillageCords(village)?.ty"
-              dx="10"
-              dy="4"
-              fill="white"
-              stroke="black"
-              font-size="9"
-              stroke-width="0.5"
-              font-family="sans-serif"
-            >
-              {{ village.name }}
-            </text>
+            <g v-if="getVillageCords(village)">
+              <text
+                :x="getVillageCords(village)?.tx"
+                :y="getVillageCords(village)?.ty"
+                dx="5"
+                dy="3"
+                stroke="black"
+                fill="white"
+                stroke-width="0.3"
+                font-size="10"
+                font-family="sans-serif"
+              >
+                {{ village.name }}
+              </text>
+            </g>
           </RouterLink>
         </g>
       </svg>
@@ -130,15 +131,16 @@ const hideTooltip = () => {
       }"
     >
       <strong>{{ tooltip.title }}</strong>
-      <br />
-      {{ tooltip.description }}
     </div>
   </div>
 </template>
 
 <style scoped>
-/* При необходимости можно добавить дополнительные стили */
 g {
   cursor: pointer;
+}
+
+text {
+  background: #000;
 }
 </style>
