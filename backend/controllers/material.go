@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"chukotka/repository"
+	"chukotka/repositories"
 	"chukotka/models"
 	"net/http"
 	"strconv"

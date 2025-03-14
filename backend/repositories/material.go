@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"chukotka/db"
+	"chukotka/core/db"
 	"chukotka/models"
 	"errors"
 )
