@@ -28,6 +28,11 @@ func registerPublicRoutes(api *gin.RouterGroup) {
 	api.POST("/register", controllers.RegisterAdmin)
 	api.POST("/login", controllers.LoginAdmin)
 
+	api.GET("/materials", controllers.GetMaterials)
+	api.GET("/materials/:id", controllers.GetMaterialByID)
+
+	api.GET("/about", controllers.GetAboutPage)
+
 	api.GET("/is-admin", controllers.ValidateTokenBool)
 }
 
@@ -47,8 +52,13 @@ func registerAdminRoutes(api *gin.RouterGroup) {
 	admin.PUT("/terms/:id", controllers.UpdateTerm)
 	admin.DELETE("/terms/:id", controllers.DeleteTerm)
 
+	admin.POST("/materials", controllers.CreateMaterial)
+	admin.PUT("/materials/:id", controllers.UpdateMaterial)
+	admin.DELETE("/materials/:id", controllers.DeleteMaterial)
+
+	admin.PUT("/about", controllers.UpdateAboutPage)
+
 	admin.GET("/protected", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Welcome, admin!"})
 	})
 }
-

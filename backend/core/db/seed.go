@@ -31,3 +31,23 @@ func SeedAdmin() {
 
 	log.Println("Admin seeded successfully.")
 }
+
+
+func SeedAbout() {
+	var count int64
+	DB.Model(&models.AboutPage{}).Count(&count)
+	if count > 0 {
+		log.Println("About page already exists. Skipping seeding.")
+		return
+	}
+
+	about := models.AboutPage{
+		Content: "Здесь можно разместить информацию о проекте.",
+	}
+
+	if err := DB.Create(&about).Error; err != nil {
+		log.Fatalf("Failed to seed about page: %v", err)
+	}
+
+	log.Println("About seeded successfully.")
+}

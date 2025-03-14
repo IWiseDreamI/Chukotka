@@ -3,12 +3,16 @@ package db
 import (
     "os"
     "fmt"
+    "sync"
     "gorm.io/gorm"
-	"chukotka/models"
-    "gorm.io/driver/postgres" 
+    "chukotka/models"
+    "gorm.io/driver/postgres"
 )
 
-var DB *gorm.DB
+var (
+    DB   *gorm.DB
+    once sync.Once
+)
 
 func connect() {
     var err error
@@ -22,19 +26,28 @@ func connect() {
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
     if err != nil {
-        panic(err)
+        panic(fmt.Sprintf("Failed to connect to the database: %v", err))
     } else {
         fmt.Println("Successfully connected to the database")
     }
 }
 
 func InitDatabase() {
-	connect()
-	
-    DB.AutoMigrate(&models.Term{})
-	DB.AutoMigrate(&models.Admin{})
-    DB.AutoMigrate(&models.Village{})
-	DB.AutoMigrate(&models.District{})
-	
-    SeedAdmin()
+	once.Do(connect)
+
+	err := DB.AutoMigrate(
+		&models.Term{},
+		&models.Admin{},
+		&models.Village{},
+		&models.District{},
+		&models.Material{},
+		&models.AboutPage{},
+	)
+
+	if err != nil {
+		panic(fmt.Sprintf("Failed to migrate database: %v", err))
+	}
+
+	SeedAdmin()
+    SeedAbout()
 }
