@@ -16,26 +16,23 @@ import AddEntityView from '@/views/admin/AddEntityView.vue'
 import EditEntityView from '@/views/admin/EditEntityView.vue'
 import { api } from './entities/api/axios'
 
-
 const routes = [
   { name: 'main', path: '/', component: HomeView },
   { name: 'auth', path: '/auth', component: AuthView },
-  { name: 'about', path: '/about', component: AboutView },  
+  { name: 'about', path: '/about', component: AboutView },
 
-  { name: 'term', path: '/guidance/:id', component: TermView},
-  { name: 'guidance', path: '/guidance', component: GuidanceView},
-  
+  { name: 'term', path: '/guidance/:id', component: TermView },
+  { name: 'guidance', path: '/guidance', component: GuidanceView },
+
   { name: 'districts', path: '/districts', component: DistrictsView },
   { name: 'district', path: '/districts/:id', component: DistrictView },
 
   { name: 'villages', path: '/villages', component: VillagesView },
   { name: 'village', path: '/villages/:id', component: VillageView },
+
+  // Admin routes
   {
     path: '/admin', component: AdminView,
-    meta: { admin: true }
-  },
-  {
-    path: '/admin/:entity', component: EntityView,
     meta: { admin: true }
   },
   {
@@ -46,6 +43,10 @@ const routes = [
     path: '/admin/:entity/edit/:id', component: EditEntityView,
     meta: { admin: true }
   },
+  {
+    path: '/admin/:entity', component: EntityView,
+    meta: { admin: true }
+  },
 ]
 
 const router = createRouter({
@@ -53,15 +54,13 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async(to) => {
-  if(to.meta.admin) {
+router.beforeEach(async (to) => {
+  if (to.meta.admin) {
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const response = await api.get('/is-admin', {
-          headers: {
-            Authorization: token
-          }
+          headers: { Authorization: token }
         });
         if (response.data.valid) {
           return true;
@@ -72,14 +71,11 @@ router.beforeEach(async(to) => {
         return { name: 'auth' };
       }
     } else {
-      return {
-        name: 'auth'
-      }
+      return { name: 'auth' };
     }
+  } else {
+    return true;
   }
-  else {
-    return true
-  }
-})
+});
 
-export default router
+export default router;

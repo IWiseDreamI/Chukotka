@@ -6,7 +6,7 @@ const entities = [
   { link: "/admin/villages", text: "Поселения", icon: "pi-building" },
   { link: "/admin/guidance", text: "Энциклопедия", icon: "pi-book" },
   { link: "/admin/materials", text: "Материалы", icon: "pi-file" },
-  { link: "/admin/about", text: "О нас", icon: "pi-info-circle" },
+  { link: "/admin/about", text: "О проекте", icon: "pi-info-circle" },
 ];
 </script>
 
@@ -16,7 +16,9 @@ const entities = [
       <h1>Администраторская панель</h1>
     </RouterLink>
 
-    <div class="flex flex-col items-center w-full gap-[32px] md:flex-row">
+    <div
+      class="flex flex-col items-center w-full gap-[32px] md:flex-row flex-wrap"
+    >
       <RouterLink
         v-for="(item, index) in entities"
         :key="index"

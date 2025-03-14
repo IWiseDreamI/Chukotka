@@ -63,19 +63,32 @@ const formModel = ref<
 // Загружаем данные по id (если требуется) или для about – получаем уникальную запись
 onMounted(async () => {
   const id = Number(route.params.id);
-  if (currentEntity.value === "districts") {
-    formModel.value = (await districtStore.getDistrictById(id)) as DistrictForm;
-  } else if (currentEntity.value === "villages") {
-    formModel.value = (await villageStore.getVillageById(id)) as VillageForm;
-  } else if (currentEntity.value === "guidance") {
-    formModel.value = (await termStore.getTermById(id)) as TermForm;
-  } else if (currentEntity.value === "materials") {
-    formModel.value = (await materialStore.getMaterialById(id)) as MaterialForm;
-  } else if (currentEntity.value === "about") {
-    // Для about id может быть не нужен, запись уникальна
-    formModel.value = (await aboutStore.getAboutPage()) as AboutForm;
+  console.log(
+    "[EditEntityView] onMounted. id:",
+    id,
+    "entity:",
+    currentEntity.value
+  );
+  try {
+    if (currentEntity.value === "districts") {
+      formModel.value = (await districtStore.getDistrictById(
+        id
+      )) as DistrictForm;
+    } else if (currentEntity.value === "villages") {
+      formModel.value = (await villageStore.getVillageById(id)) as VillageForm;
+    } else if (currentEntity.value === "guidance") {
+      formModel.value = (await termStore.getTermById(id)) as TermForm;
+    } else if (currentEntity.value === "materials") {
+      formModel.value = (await materialStore.getMaterialById(
+        id
+      )) as MaterialForm;
+    } else if (currentEntity.value === "about") {
+      formModel.value = (await aboutStore.getAboutPage()) as AboutForm;
+    }
+    console.log("[EditEntityView] Загружена форма:", formModel.value);
+  } catch (error) {
+    console.error("[EditEntityView] Ошибка загрузки формы:", error);
   }
-  console.log("Loaded formModel:", formModel.value);
 });
 
 // Создадим вычисляемое свойство для типизированного доступа к форме
@@ -118,22 +131,30 @@ const entityHandlers = {
 };
 
 const handleSubmit = async () => {
-  if (!formModel.value) return;
-  const handler = entityHandlers[currentEntity.value];
-  if (!handler) {
-    console.error("Unknown entity type:", currentEntity.value);
+  if (!formModel.value) {
+    console.warn("[EditEntityView] Нет данных формы для отправки");
     return;
   }
+  const handler = entityHandlers[currentEntity.value];
+  if (!handler) {
+    console.error(
+      "[EditEntityView] Неизвестный тип сущности:",
+      currentEntity.value
+    );
+    return;
+  }
+  console.log("[EditEntityView] Отправка данных формы:", formModel.value);
   try {
-    // Приводим значение формы через unknown к объединённому типу
     const currentFormModel = formModel.value as unknown as FormModels;
     await handler(currentFormModel);
+    console.log("[EditEntityView] Обновление прошло успешно");
     alert("Сущность изменена");
 
     updateEntity(currentEntity.value);
+    console.log("[EditEntityView] Редирект на /admin/" + currentEntity.value);
     router.push(`/admin/${currentEntity.value}`);
   } catch (error) {
-    console.error("Ошибка при обновлении:", error);
+    console.error("[EditEntityView] Ошибка при обновлении:", error);
   }
 };
 </script>

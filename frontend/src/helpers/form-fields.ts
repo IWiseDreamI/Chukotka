@@ -35,10 +35,23 @@ const guidanceForm: FieldInterface[] = [
   { name: "content", field: "markdown", label: "Содержание" },
 ];
 
-export const getFormFields = (entity: string) => {
-  return entity === "districts"
-    ? districtForm
-    : entity === "villages"
-    ? villageForm
-    : guidanceForm;
-} 
+const materialForm: FieldInterface[] = [
+  { name: "title", field: "input", label: "Название материала" },
+  { name: "content", field: "markdown", label: "Содержание" },
+  { name: "category", field: "input", label: "Категория" },
+  { name: "author", field: "input", label: "Автор" },
+  { name: "publication_date", field: "input", label: "Дата публикации" },
+];
+
+const aboutForm: FieldInterface[] = [
+  { name: "content", field: "markdown", label: "Контент страницы 'О проекте'" },
+];
+
+export const getFormFields = (entity: string): FieldInterface[] => {
+  if (entity === "districts") return districtForm;
+  else if (entity === "villages") return villageForm;
+  else if (entity === "guidance") return guidanceForm;
+  else if (entity === "materials") return materialForm;
+  else if (entity === "about") return aboutForm;
+  else return [];
+};

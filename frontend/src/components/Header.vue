@@ -23,16 +23,18 @@ const menu = ref(false);
     <nav class="hidden gap-[48px] lg:flex">
       <RouterLink to="/">Главная</RouterLink>
       <RouterLink to="/villages">Сёла</RouterLink>
+      <!-- <RouterLink to="/materials">Материалы</RouterLink> -->
       <RouterLink to="/guidance">Энциклопедия</RouterLink>
-      <RouterLink to="/about">О нас</RouterLink>
+      <RouterLink to="/about">О проекте</RouterLink>
     </nav>
     <nav class="flex gap-[48px] lg:hidden">
       <Drawer v-model:visible="menu" header="Навигация" position="right">
         <div class="w-full flex flex-col gap-[12px]">
           <RouterLink to="/">Главная</RouterLink>
           <RouterLink to="/villages">Сёла</RouterLink>
+          <!-- <RouterLink to="/materials">Материалы</RouterLink> -->
           <RouterLink to="/guidance">Энциклопедия</RouterLink>
-          <RouterLink to="/about">О нас</RouterLink>
+          <RouterLink to="/about">О проекте</RouterLink>
         </div>
       </Drawer>
       <Button icon="pi pi-bars" @click="menu = true" />
