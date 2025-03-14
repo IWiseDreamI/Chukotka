@@ -10,7 +10,7 @@ import (
 )
 
 func GetMaterials(c *gin.Context) {
-	materials, err := repository.GetAllMaterials()
+	materials, err := repositories.GetAllMaterials()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve materials"})
 		return
@@ -25,7 +25,7 @@ func GetMaterialByID(c *gin.Context) {
 		return
 	}
 
-	material, err := repository.GetMaterialByID(uint(id))
+	material, err := repositories.GetMaterialByID(uint(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Material not found"})
 		return
@@ -41,7 +41,7 @@ func CreateMaterial(c *gin.Context) {
 		return
 	}
 
-	if err := repository.CreateMaterial(&material); err != nil {
+	if err := repositories.CreateMaterial(&material); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create material"})
 		return
 	}
@@ -63,7 +63,7 @@ func UpdateMaterial(c *gin.Context) {
 	}
 
 	material.ID = uint(id)
-	if err := repository.UpdateMaterial(&material); err != nil {
+	if err := repositories.UpdateMaterial(&material); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update material"})
 		return
 	}
@@ -78,7 +78,7 @@ func DeleteMaterial(c *gin.Context) {
 		return
 	}
 
-	if err := repository.DeleteMaterial(uint(id)); err != nil {
+	if err := repositories.DeleteMaterial(uint(id)); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Material not found"})
 		return
 	}

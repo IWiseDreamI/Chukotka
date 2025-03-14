@@ -8,7 +8,7 @@ import (
 )
 
 func GetAboutPage(c *gin.Context) {
-	about, err := repository.GetAboutPage()
+	about, err := repositories.GetAboutPage()
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "About page not found"})
 		return
@@ -24,7 +24,7 @@ func UpdateAboutPage(c *gin.Context) {
 		return
 	}
 
-	if err := repository.UpdateAboutPage(&request); err != nil {
+	if err := repositories.UpdateAboutPage(&request); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update about page"})
 		return
 	}
