@@ -2,21 +2,11 @@
 import { Card } from "primevue";
 
 const entities = [
-  {
-    link: "/admin/districts",
-    text: "Районы",
-    icon: "pi-map-marker",
-  },
-  {
-    link: "/admin/villages",
-    text: "Поселения",
-    icon: "pi-building",
-  },
-  {
-    link: "/admin/guidance",
-    text: "Энциклопедия",
-    icon: "pi-book",
-  },
+  { link: "/admin/districts", text: "Районы", icon: "pi-map-marker" },
+  { link: "/admin/villages", text: "Поселения", icon: "pi-building" },
+  { link: "/admin/guidance", text: "Энциклопедия", icon: "pi-book" },
+  { link: "/admin/materials", text: "Материалы", icon: "pi-file" },
+  { link: "/admin/about", text: "О нас", icon: "pi-info-circle" },
 ];
 </script>
 
@@ -27,7 +17,11 @@ const entities = [
     </RouterLink>
 
     <div class="flex flex-col items-center w-full gap-[32px] md:flex-row">
-      <RouterLink v-for="item in entities" :to="item.link">
+      <RouterLink
+        v-for="(item, index) in entities"
+        :key="index"
+        :to="item.link"
+      >
         <Card class="card">
           <template #content>
             <div class="flex flex-col gap-[24px] w-[300px]">
