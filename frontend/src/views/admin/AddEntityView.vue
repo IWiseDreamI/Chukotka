@@ -37,7 +37,7 @@ const entity = computed(() => {
   return route.params.entity as entityTypes;
 });
 
-// Вычисляем поля формы в зависимости от сущности
+// Получаем конфигурацию полей формы для выбранной сущности
 const formFields = computed<FieldInterface[]>(() =>
   getFormFields(entity.value)
 );
@@ -84,38 +84,28 @@ const aboutFormModel = ref<AboutForm>({
   content: "",
 });
 
-// computed, возвращающий нужный ref модели в зависимости от типа сущности
-const formModelRef = computed(() => {
-  switch (entity.value) {
-    case "districts":
-      return districtFormModel;
-    case "villages":
-      return villageFormModel;
-    case "guidance":
-      return termFormModel;
-    case "materials":
-      return materialFormModel;
-    case "about":
-      return aboutFormModel;
-    default:
-      return termFormModel;
-  }
-});
+// Используем старый подход: присваиваем formModel равным нужной модели
+const formModel = ref(
+  entity.value === "districts"
+    ? districtFormModel.value
+    : entity.value === "villages"
+    ? villageFormModel.value
+    : entity.value === "guidance"
+    ? termFormModel.value
+    : entity.value === "materials"
+    ? materialFormModel.value
+    : entity.value === "about"
+    ? aboutFormModel.value
+    : termFormModel.value
+);
 
-// Объединяем типы форм в один union
-type FormModels =
-  | DistrictForm
-  | VillageForm
-  | TermForm
-  | MaterialForm
-  | AboutForm;
 type FormFieldsNames = keyof (DistrictForm &
   VillageForm &
   TermForm &
   MaterialForm &
   AboutForm);
+type FormModels = District | Village | Term | Material | About;
 
-// Маппинг обработчиков. Для about используется updateAbout, так как запись уже существует.
 const entityHandlers = {
   districts: (data: FormModels) => createDistrict(data as District),
   villages: (data: FormModels) => createVillage(data as Village),
@@ -124,7 +114,6 @@ const entityHandlers = {
   about: (data: FormModels) => updateAbout(data as About),
 };
 
-// Заголовок формы и текст кнопки зависят от сущности
 const formTitle = computed(() =>
   entity.value === "about"
     ? "Обновить страницу 'О нас'"
@@ -134,32 +123,28 @@ const buttonText = computed(() =>
   entity.value === "about" ? "Обновить" : "Отправить"
 );
 
-const handleSubmit = async () => {
+const handleSubmit = () => {
   const handler = entityHandlers[entity.value];
   if (!handler) {
     console.error("Unknown entity type:", entity.value);
     return;
   }
-  try {
-    // Приводим значение формы через unknown к объединённому типу
-    const currentFormModel = formModelRef.value as unknown as FormModels;
-    await handler(currentFormModel);
-    let entityName = "";
-    if (entity.value === "districts" || entity.value === "villages") {
-      entityName = (formModelRef.value as unknown as { name: string }).name;
-    } else if (entity.value === "guidance" || entity.value === "materials") {
-      entityName = (formModelRef.value as unknown as { title: string }).title;
-    } else if (entity.value === "about") {
-      entityName = "Страница 'О проекте'";
-    }
-    alert(`${entityName} успешно обновлена`);
+  // Передаем formModel.value напрямую – оно является обычным объектом, а не реактивной обёрткой
+  handler(formModel.value as FormModels)
+    .then(() => {
+      const entityName =
+        (formModel.value as { name?: string }).name ||
+        (formModel.value as { title?: string }).title ||
+        (entity.value === "about" ? "Страница 'О нас'" : "");
+      alert(entityName + " добавлено");
 
-    updateEntity(entity.value);
-    router.push(`/admin/${entity.value}`);
-    window.location.reload();
-  } catch (error) {
-    console.error("Ошибка при отправке данных:", error);
-  }
+      updateEntity(entity.value);
+      router.push(`/admin/${entity.value}`);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error("Ошибка при отправке данных:", error);
+    });
 };
 </script>
 
@@ -175,7 +160,7 @@ const handleSubmit = async () => {
         <div v-if="field.field === 'input'">
           <label :for="field.name">{{ field.label }}</label>
           <InputText
-            v-model="(formModelRef.value as Record<string, string | undefined>)[field.name as FormFieldsNames]"
+            v-model="(formModel as Record<string, string | undefined>)[field.name as FormFieldsNames]"
             class="w-full"
             :id="field.name"
           />
@@ -183,7 +168,7 @@ const handleSubmit = async () => {
         <div v-if="field.field === 'textarea'">
           <label :for="field.name">{{ field.label }}</label>
           <Textarea
-            v-model="(formModelRef.value as Record<string, string | undefined>)[field.name as FormFieldsNames]"
+            v-model="(formModel as Record<string, string | undefined>)[field.name as FormFieldsNames]"
             class="w-full !py-[0.75em]"
             :id="field.name"
             rows="5"
@@ -193,7 +178,7 @@ const handleSubmit = async () => {
         <div v-if="field.field === 'markdown'">
           <label :for="field.name">{{ field.label }}</label>
           <Editor
-            v-model="(formModelRef.value as Record<string, string | undefined>)[field.name as FormFieldsNames]"
+            v-model="(formModel as Record<string, string | undefined>)[field.name as FormFieldsNames]"
             class="w-full"
             :id="field.name"
             editorStyle="height: 220px"

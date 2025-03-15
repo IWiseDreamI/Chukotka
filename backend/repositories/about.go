@@ -6,14 +6,12 @@ import (
 	"gorm.io/gorm"
 )
 
-// GetAboutPage возвращает первую найденную страницу "О нас" или ошибку, если не удалось получить данные.
 func GetAboutPage() (models.AboutPage, error) {
 	var about models.AboutPage
 	result := db.DB.First(&about)
 	return about, result.Error
 }
 
-// UpdateAboutPage обновляет содержимое страницы "О нас". 
 // Если запись не найдена, можно создать новую.
 func UpdateAboutPage(about *models.AboutPage) error {
 	var existing models.AboutPage

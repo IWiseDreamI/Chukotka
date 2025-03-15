@@ -8,6 +8,9 @@ import VillagesView from '@/views/user/VillagesView.vue'
 import GuidanceView from '@/views/user/GuidanceView.vue'
 import DistrictView from '@/views/user/DistrictView.vue'
 import DistrictsView from '@/views/user/DistrictsView.vue'
+import MaterialView from "@/views/user/MaterialView.vue"
+import MaterialsView from "@/views/user/MaterialsView.vue"
+
 
 import AuthView from '@/views/admin/AuthView.vue'
 import AdminView from '@/views/admin/AdminView.vue'
@@ -24,6 +27,9 @@ const routes = [
   { name: 'term', path: '/guidance/:id', component: TermView },
   { name: 'guidance', path: '/guidance', component: GuidanceView },
 
+  { name: 'materials', path: '/materials', component: MaterialsView },
+  { name: 'material', path: '/materials/:id', component: MaterialView },
+  
   { name: 'districts', path: '/districts', component: DistrictsView },
   { name: 'district', path: '/districts/:id', component: DistrictView },
 

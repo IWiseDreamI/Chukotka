@@ -20,13 +20,24 @@ const districts = await districtsStore.getDistricts();
 const villagesStore = useVillageStore();
 const villages = await villagesStore.getVillages();
 
-const activeEntity = ref<District | Village>(districts[0]);
+const defaultContent = {
+  name: "Сёла чукотки",
+  description: `<b>Добро пожаловать в проект, посвящённый уникальным и самобытным сёлам Чукотского автономного округа!</b></br>
+                <br />Чукотка — это суровый, но невероятно красивый край, где раскинулись поселения, в которых живут сильные духом люди. Здесь сохранились традиции коренных народов, переплетаются культура и современность, а природа завораживает своей первозданной мощью.<br />
+                <br />На этой карте вы найдёте все сёла Чукотки — от побережья Ледовитого океана до отдалённых районов тундры. Мы собираем истории, фотографии и сведения о каждом населённом пункте, чтобы сохранить и передать знания о жизни в этом удивительном регионе.<br />
+                <br />Исследуйте карту, узнавайте больше о сёлах и делитесь своими историями!
+`,
+};
+
+const activeEntity = ref<District | Village | typeof defaultContent>(
+  defaultContent
+);
 const setActiveEntity = (item: District | Village) => {
   activeEntity.value = item;
 };
 
-const isVilllage = computed<boolean>(() =>
-  activeEntity.value.name.toLowerCase().includes("район") ? false : true
+const isVillage = computed<boolean>(() =>
+  activeEntity.value?.name.toLowerCase().includes("район") ? false : true
 );
 
 const getVillageCords = (village: Village) => {
@@ -68,7 +79,6 @@ const hideTooltip = () => {
 </script>
 
 <template>
-  <!-- Родительский контейнер с ref для tooltip, установлен relative -->
   <div ref="containerRef" class="home relative">
     <div
       class="flex items-center justify-center w-[1000px] h-[360px] mc:h-full md:w-full lg:h-[500px] xl:w-[60%]"
@@ -76,7 +86,6 @@ const hideTooltip = () => {
       <svg
         class="w-full h-[500px] scale-[0.6] translate-x-[-220px] sm:scale-75 sm:translate-x-[-150px] md:translate-x-0 md:w-[640px] md:scale-100 df:scale-[1.2]"
       >
-        <!-- Районы с tooltip -->
         <path
           v-for="district in districts"
           :key="district.ID"
@@ -123,11 +132,14 @@ const hideTooltip = () => {
     <div
       class="flex flex-col gap-[24px] xl:w-2/5 text-left pt-[24px] pb-[36px] md:py-0"
     >
-      <h1>{{ activeEntity.name }}</h1>
-      <Markdown :content="String(activeEntity.description)" />
-      <div class="flex gap-[24px]">
+      <h1>{{ activeEntity?.name }}</h1>
+      <Markdown
+        v-if="activeEntity.description"
+        :content="activeEntity.description"
+      />
+      <div class="flex gap-[24px]" v-if="'ID' in activeEntity">
         <RouterLink
-          :to="(isVilllage ? '/villages/' : '/districts/') + activeEntity.ID"
+          :to="(isVillage ? '/villages/' : '/districts/') + activeEntity.ID"
         >
           <Button>Подробнее</Button>
         </RouterLink>

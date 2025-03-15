@@ -64,17 +64,13 @@ const hideTooltip = () => {
 </script>
 
 <template>
-  <!-- Корневой контейнер, в котором всё располагается, с ограничением ширины -->
   <div ref="containerRef" class="relative mx-auto max-w-[900px] w-full p-4">
-    <!-- Контейнер с aspect-ratio (например, 13/10 ~ 650/500) -->
     <div class="relative w-full aspect-[13/10]">
-      <!-- Абсолютно позиционируем SVG внутри контейнера -->
       <svg
         viewBox="0 0 650 500"
         preserveAspectRatio="xMidYMid meet"
         class="absolute top-0 left-0 w-full h-full"
       >
-        <!-- Районы -->
         <path
           v-for="district in districts"
           :key="district.ID"
@@ -82,7 +78,6 @@ const hideTooltip = () => {
           class="stroke-white fill-[#79553D] hover:fill-[#3D2B1F] duration-300 cursor-pointer"
           @click="setActiveEntity(district)"
         />
-        <!-- Деревни с подписью -->
         <g
           v-for="village in villages"
           :key="village.ID"
@@ -109,8 +104,9 @@ const hideTooltip = () => {
                 stroke="black"
                 fill="white"
                 stroke-width="0.3"
-                font-size="10"
+                font-size="14"
                 font-family="sans-serif"
+                letter-spacing="0.3"
               >
                 {{ village.name }}
               </text>
