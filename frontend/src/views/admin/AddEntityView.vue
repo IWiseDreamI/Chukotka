@@ -74,6 +74,7 @@ const termFormModel = ref<TermForm>({
 
 const materialFormModel = ref<MaterialForm>({
   title: "",
+  description: "",
   content: "",
   category: "",
   author: "",
