@@ -27,7 +27,7 @@ const materials = await materialStore.getMaterials();
         </p>
         <!-- Можно добавить превью содержимого, обрезав текст -->
         <p class="text-base line-clamp-3">
-          {{ material.content }}
+          {{ material.description }}
         </p>
       </article>
     </RouterLink>
