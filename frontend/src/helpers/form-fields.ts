@@ -37,6 +37,7 @@ const guidanceForm: FieldInterface[] = [
 
 const materialForm: FieldInterface[] = [
   { name: "title", field: "input", label: "Название материала" },
+  { name: "description", field: "textarea", label: "Описание" },
   { name: "content", field: "markdown", label: "Содержание" },
   { name: "category", field: "input", label: "Категория" },
   { name: "author", field: "input", label: "Автор" },

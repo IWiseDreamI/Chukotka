@@ -31,6 +31,7 @@ export interface TermForm {
 
 export interface MaterialForm {
   title: string;
+  description: string;
   content: string;
   category: string;
   author: string;

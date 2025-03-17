@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type Material struct {
 	gorm.Model
 	Title          string `gorm:"size:255;not null" json:"title"`
+	Description    string `gorm:"type:text" json:"description"`
 	Content    string `gorm:"type:text" json:"content"`
 	Category       string `gorm:"size:255;not null" json:"category"`
 	Author         string `gorm:"size:255" json:"author"`
