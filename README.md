@@ -172,7 +172,7 @@ sudo systemctl enable chukotka-backend.service
 #### Установка Node.js и npm
 
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install nodejs -y
 sudo npm install -g npm
 ```
